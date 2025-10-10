@@ -1,0 +1,13 @@
+# Ignorar a pasta de módulos Node
+/node_modules
+# Ignorar ficheiros de log
+npm-debug.log
+# Ignorar cache do npm
+.npm/
+# Ignorar settings e cache do VSCode
+.vscode/
+# Ignorar ficheiros de ambiente (que contêm chaves)
+.env
+# Ignorar ficheiros de banco de dados SQLite (para não enviar dados sensíveis de teste)
+*.sqlite
+*.db

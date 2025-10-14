@@ -1,9 +1,13 @@
 // server.js
 
-const orderRoutes = require('./src/routes/orders'); // Importa as rotas
+const orderRoutes = require('./src/routes/orders'); 
 const express = require('express');
+
 const { sequelize, connectDB } = require('./src/config/database');
-const Order = require('./src/models/Order'); // Importa o modelo
+const Order = require('./src/models/Order'); 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json'); // Forma simples
+const path = require('path'); // <--- A LINHA DO 'path'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,16 +15,21 @@ const PORT = process.env.PORT || 3000;
 // Middleware para processar JSON nas requisições
 app.use(express.json());
 
+
 // 1. Configurar Rotas
 app.use('/api/orders', orderRoutes);
 
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Rota de teste simples
 app.get('/', (req, res) => {
   res.send('API de Gestão de Ordens de Serviço está rodando!');
 });
 
+// Rota manual para servir o arquivo swagger.json (Resolve o Cannot GET)
+app.get('/swagger.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'swagger.json'));
+});
 
 // 2. Iniciar o Servidor
 async function startServer() {

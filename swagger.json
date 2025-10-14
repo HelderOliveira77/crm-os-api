@@ -1,0 +1,82 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Gestão de Ordens de Serviço (CRM-OS)",
+      "version": "1.0.0",
+      "description": "Endpoints para criação, leitura, atualização e eliminação de Ordens de Serviço."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/api"
+      }
+    ],
+    "paths": {
+      "/orders": {
+        "get": {
+          "summary": "Listar todas as Ordens de Serviço",
+          "responses": { "200": { "description": "Lista de ordens de serviço." } }
+        },
+        "post": {
+          "summary": "Criar nova Ordem de Serviço",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string", "example": "Instalação de Novo Servidor" },
+                    "description": { "type": "string", "example": "Configuração inicial de hardware e software." },
+                    "priority": { "type": "string", "example": "Média" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Ordem de Serviço criada com sucesso."
+            }
+          }
+        }
+      },
+      "/orders/{id}": {
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "get": { 
+          "summary": "Buscar OS por ID", 
+          "responses": { "200": { "description": "Detalhes da OS." } }, 
+          "tags": [ "Orders" ] 
+        },
+        "put": { 
+          "summary": "Atualizar OS por ID", 
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string", "example": "Instalação de Novo Servidor" },
+                    "description": { "type": "string", "example": "Configuração inicial de hardware e software." },
+                    "priority": { "type": "string", "example": "Alta" },
+                    "status": { "type": "string", "example": "Concluída" } 
+                  }
+                }
+              }
+            }
+          },
+          "responses": { 
+            "200": { "description": "OS atualizada." } 
+          }, 
+          "tags": [ "Orders" ] 
+        },
+        "delete": { 
+          "summary": "Eliminar OS por ID", 
+          "responses": { "204": { "description": "OS eliminada." } }, 
+          "tags": [ "Orders" ] 
+        }
+      }
+    }
+  }

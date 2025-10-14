@@ -108,4 +108,4 @@ router.delete('/:id', async (req, res) => {
 // AQUI DEVE ESTAR O module.exports = router; (Certifique-se que está no final)
 
 
-module.exports = router;
+module.exports = router; 

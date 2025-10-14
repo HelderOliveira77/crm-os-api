@@ -21,5 +21,5 @@ async function connectDB() {
 // 2. O objeto sequelize precisa ser exportado!
 module.exports = {
   sequelize,
-  connectDB
+  connectDB 
 };

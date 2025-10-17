@@ -1,10 +1,7 @@
 // src/models/Order.js
 
 const { DataTypes } = require('sequelize');
-// 1. A importação precisa usar a desestruturação { sequelize }
-// 2. O caminho para a pasta 'config' precisa estar correto (../config/database)
-const { sequelize } = require('../config/database'); 
-
+const { sequelize } = require('../config/database');
 
 const Order = sequelize.define('Order', {
   id: {
@@ -19,19 +16,29 @@ const Order = sequelize.define('Order', {
   description: {
     type: DataTypes.TEXT,
   },
+  // NOVOS CAMPOS PARA ENRIQUECER A OS
+  client_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'Cliente Não Especificado'
+  },
+  scheduled_date: {
+    type: DataTypes.DATEONLY, // Apenas a data
+    allowNull: true,
+  },
+  scheduled_time: {
+    type: DataTypes.TIME, // Apenas a hora
+    allowNull: true,
+  },
+  // CAMPOS EXISTENTES
   status: {
     type: DataTypes.STRING,
-    defaultValue: 'Pendente', 
-    allowNull: false,
+    defaultValue: 'Pendente',
   },
   priority: {
     type: DataTypes.STRING,
-    defaultValue: 'Média', 
-  },
-  
-}, {
-
-    tableName: 'Orders',
+    defaultValue: 'Média',
+  }
 });
 
 module.exports = Order;

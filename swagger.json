@@ -7,10 +7,73 @@
     },
     "servers": [
       {
-        "url": "http://localhost:3000/api"
+        "url": "http://localhost:3000"
       }
     ],
     "paths": {
+      "/auth/register": {
+    "post": {
+      "summary": "Registar Novo Utilizador",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string", "example": "tecnico1" },
+                "password": { "type": "string", "example": "SenhaSegura123" },
+                "role": { "type": "string", "enum": ["Admin", "Technician", "Viewer"], "example": "Technician" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": { "description": "Utilizador registado com sucesso." }
+      }
+    }
+  },
+  "/auth/login": {
+    "post": {
+      "summary": "Login do Utilizador",
+      "tags": ["Auth"],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string", "example": "tecnico1" },
+                "password": { "type": "string", "example": "SenhaSegura123" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": { 
+          "description": "Login bem-sucedido, retorna JWT.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string" },
+                  "user": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "401": { "description": "Credenciais Inválidas." }
+      }
+    }
+  },
+
+
       "/orders": {
         "get": {
           "summary": "Listar todas as Ordens de Serviço",

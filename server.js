@@ -1,12 +1,15 @@
 // server.js
 
+const authRoutes = require('./src/routes/auth'); // NOVO: Rotas de autenticação
 const orderRoutes = require('./src/routes/orders'); 
 const express = require('express');
 
 const { sequelize, connectDB } = require('./src/config/database');
 const Order = require('./src/models/Order'); 
+const User = require('./src/models/User'); // NOVO: Modelo do utilizador (importante para o sequelize.sync)
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json'); // Forma simples
+
 const path = require('path'); // <--- A LINHA DO 'path'
 
 const app = express();
@@ -17,7 +20,8 @@ app.use(express.json());
 
 
 // 1. Configurar Rotas
-app.use('/api/orders', orderRoutes);
+app.use('/auth', authRoutes);    // <--- AGORA ESPERA /auth/register
+app.use('/orders', orderRoutes); // <--- AGORA ESPERA /orders
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

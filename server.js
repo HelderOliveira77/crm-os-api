@@ -1,4 +1,4 @@
-// server.js
+// server.js 
 
 const authRoutes = require('./src/routes/auth'); // NOVO: Rotas de autenticação
 const orderRoutes = require('./src/routes/orders'); 

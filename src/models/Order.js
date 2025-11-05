@@ -1,45 +1,290 @@
-// src/models/Order.js
+// src/models/Order.js (DEFINIÇÃO FINAL SINCRONIZADA COM A TABELA MYSQL)
 
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
 
 const Order = sequelize.define('Order', {
+  // ATENÇÃO: A ordem dos campos na definição do modelo não afeta o funcionamento,
+  // mas o nome e o tipo TÊM de corresponder à tabela.
+
+  // 1. id (Chave Primária)
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-  },
-  // NOVOS CAMPOS PARA ENRIQUECER A OS
-  client_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'Cliente Não Especificado'
-  },
-  scheduled_date: {
-    type: DataTypes.DATEONLY, // Apenas a data
+  
+  // 2. NUM_O.S.
+  num_o_s: {
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
-  scheduled_time: {
-    type: DataTypes.TIME, // Apenas a hora
-    allowNull: true,
-  },
-  // CAMPOS EXISTENTES
-  status: {
-    type: DataTypes.STRING,
-    defaultValue: 'Pendente',
-  },
-  priority: {
-    type: DataTypes.STRING,
-    defaultValue: 'Média',
-  }
 
+    // 3. cliente (Nome do Cliente)
+    cliente: {
+      type: DataTypes.STRING(100), // Baseado no screenshot
+      allowNull: true,
+    },
+
+  // 4. desc_trab (Descrição do Trabalho)
+  desc_trab: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+
+    // 5. data_abert
+    data_aber: {
+      type: DataTypes.DATEONLY, // Assumindo apenas a data
+      allowNull: true,
+    },
+
+  // 6. data_recep
+  data_recep: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
+
+  // 7. num_orc (Nº Orçamento)
+  num_orc: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  
+    // 8. formato
+    formato: {
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
+
+  // 9. cores_miolo
+  cores_miolo: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 10. cores_capa
+  cores_capa: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  
+  // 11. num_pag
+  num_pag: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+  
+  // 12. lombada
+  lombada: {
+    type: DataTypes.DOUBLE, // ou FLOAT, dependendo da precisão
+    allowNull: true,
+  },
+
+   // 13. observacoes_gerais
+   observacoes_gerais: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  }, 
+
+  // 14. impressão
+   impressao: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  }, 
+
+  // 15. papel_miolo
+  papel_miolo: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+
+  // 16. miolo_gramas
+  miolo_gramas: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  
+  // 17. bobine_miolo
+  bobine_miolo: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },  
+
+  // 18. papel_capa
+  papel_capa: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },  
+
+  // 19. capa_gramas
+  capa_gramas: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 20. bobine_capa
+  bobine_capa: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+
+  // 21. tiragem
+  tiragem: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 22. provas_cor
+  provas_cor: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 23. ozalide_digital
+  ozalide_digital: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 24. provas_konica
+  provas_konica: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 25. verniz_capa
+  verniz_capa: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+
+  // 26. verniz_capa_brilho_mate
+  verniz_capa_brilho_mate: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+
+  // 27. verniz_capa_geral_reservado
+  verniz_capa_geral_reservado: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+
+  // 28. verniz_capa_f_v
+  verniz_capa_f_v: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+
+  // 29. observacoes_capa
+  observacoes_capa: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+
+  // 30. verniz_miolo
+  verniz_miolo: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+
+  // 31. verniz_miolo_brilho_mate
+  verniz_miolo_brilho_mate: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+
+  // 32. verniz_miolo_geral_reservado
+  verniz_miolo_geral_reservado: {
+    type: DataTypes.STRING(30),
+    allowNull: true,
+  },
+
+  // 33. tipo_acabamento_miolo
+  tipo_acabamento_miolo: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+  
+   // 34. observacoes_miolo
+  observacoes_miolo: { 
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+
+  // 35. local_entrega
+  local_entrega: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+
+  // 36. forma_expedição
+  forma_expedicao: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+
+  // 37. quantidade_chapas
+  quantidade_chapas: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  // 38. operador
+  operador: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+
+  // 39. tempo_operador
+  tempo_operador: {
+    type: DataTypes.STRING(100),
+    allowNull: true,
+  },
+
+  // 40. estado (Status)
+  estado: {
+    type: DataTypes.STRING(30),
+    defaultValue: 'Pendente',
+    allowNull: true,
+  },
+
+  // 41. createdAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+
+  // 42. updatedAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+
+}, 
+
+{
+  // CONFIGURAÇÕES ADICIONAIS NECESSÁRIAS
+  
+  // O nome da tabela é crucial para a sincronização
+  tableName: 'Orders', 
+  freezeTableName: true, 
+
+  // Se a sua tabela não usar as colunas createdAt e updatedAt:
+  timestamps: true, // Mantenha a true se as colunas existirem, caso contrário, defina a false.
+  
+  // Mapeamento extra (Se as colunas tiverem nomes diferentes no modelo vs na tabela):
+  // field: 'nome_da_coluna_na_bd'
+
+  // Exemplo de mapeamento para as colunas de data/hora (se não usarem o nome por defeito):
+  // createdAt: {
+  //   field: 'createdAt', // Se o nome for este, não precisa
+  //   type: DataTypes.DATE,
+  // },
+  // updatedAt: {
+  //   field: 'updatedAt', // Se o nome for este, não precisa
+  //   type: DataTypes.DATE,
+  // },
 });
 
 module.exports = Order;

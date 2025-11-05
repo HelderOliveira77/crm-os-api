@@ -4,10 +4,15 @@ const express = require('express');
 const router = express.Router(); 
 const Order = require('../models/Order'); // <--- Certifique-se que o caminho está correto!
 
-// ROTA: POST /api/orders
+const { verifyToken } = require('../middleware/auth'); // O caminho é '../middleware/auth' a partir de 'src/routes'
+
+
+// ROTA: POST /api/os
 // Objetivo: Criar uma nova Ordem de Serviço
-router.post('/', async (req, res) => {
+// [ADICIONAR O verifyToken AQUI]
+router.post('/', verifyToken, async (req, res) => {
   try {
+    // Nota: O req.body deve conter os campos necessários (ex: cliente, descricao)
     const newOrder = await Order.create(req.body);
     res.status(201).json(newOrder); 
   } catch (error) {
@@ -19,9 +24,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ROTA: GET /api/orders
-// Objetivo: Listar todas as Ordens de Serviço
-router.get('/', async (req, res) => {
+// [MELHORIA DE SEGURANÇA] Proteger a listagem também (GET)
+// ROTA: GET /api/os
+router.get('/', verifyToken, async (req, res) => { 
   try {
     const orders = await Order.findAll();
     res.status(200).json(orders); 

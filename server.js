@@ -15,13 +15,27 @@ const path = require('path'); // <--- A LINHA DO 'path'
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware para processar JSON nas requisições
-app.use(express.json());
+const cors = require('cors'); // [NOVO] Importar cors
 
 
 // 1. Configurar Rotas
+
+// [NOVO] Configurar CORS para aceitar pedidos do frontend
+app.use(cors({
+  origin: 'http://localhost:5173', // Permite apenas a sua porta frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
+
+
+// Middleware para processar JSON nas requisições
+app.use(express.json());
+//app.use('/api/os', orderRoutes);
+
+
 app.use('/auth', authRoutes);    // <--- AGORA ESPERA /auth/register
-app.use('/orders', orderRoutes); // <--- AGORA ESPERA /orders
+//app.use('/orders', orderRoutes); // <--- AGORA ESPERA /orders
+app.use('/api/os', orderRoutes); // <--- A ÚNICA ROTA CORRETA PARA O ORDERS.JS
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

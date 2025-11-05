@@ -39,6 +39,7 @@ const Order = sequelize.define('Order', {
     type: DataTypes.STRING,
     defaultValue: 'Média',
   }
+
 });
 
 module.exports = Order;

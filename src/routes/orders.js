@@ -61,24 +61,22 @@ router.get('/:id', async (req, res) => {
 
 // ROTA: PUT /api/orders/:id
 // Objetivo: Atualizar uma Ordem de Serviço por ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   try {
     const orderId = parseInt(req.params.id, 10);
-    
+
     // 1. Encontra a OS
     const order = await Order.findByPk(orderId);
-    
+
     if (!order) {
       // Retorna 404 se não for encontrada
       return res.status(404).json({ message: 'Ordem de Serviço não encontrada.' });
     }
-    
-    // 2. Atualiza os dados no objeto da OS
-    const updatedOrder = await order.update(req.body); 
 
+    // 2. Atualiza os dados no objeto da OS
+    const updatedOrder = await order.update(req.body);
     // 3. Retorna a OS atualizada
     return res.status(200).json(updatedOrder);
-
   } catch (error) {
     console.error('Erro no PUT:', error);
     res.status(500).json({ message: 'Erro interno ao atualizar Ordem de Serviço.' });
@@ -86,31 +84,27 @@ router.put('/:id', async (req, res) => {
 });
 
 
+
 // ROTA: DELETE /api/orders/:id
 // Objetivo: Eliminar uma Ordem de Serviço por ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
   try {
     // 1. Converter o ID para número
-    const orderId = parseInt(req.params.id, 10); 
-
+    const orderId = parseInt(req.params.id, 10);
     const deletedCount = await Order.destroy({
       // 2. Usar o ID convertido
-      where: { id: orderId } 
+      where: { id: orderId }
     });
-
     if (deletedCount === 0) {
       return res.status(404).json({ message: 'Ordem de Serviço não encontrada.' });
     }
-
-
     // Retorna 204 No Content para indicar sucesso na eliminação
-    return res.status(204).send(); 
+    return res.status(204).send();
   } catch (error) {
     res.status(500).json({ message: 'Erro ao eliminar Ordem de Serviço.' });
-  } // <--- ESTA CHAVE ESTAVA A FALTAR/MAL COLOCADA
+  }
+});
 
-}); // <--- ESTE PARÊNTESE FECHA o router.delete
-// AQUI DEVE ESTAR O module.exports = router; (Certifique-se que está no final)
 
 
 module.exports = router; 

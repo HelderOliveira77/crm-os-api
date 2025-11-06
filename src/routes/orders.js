@@ -28,8 +28,24 @@ router.post('/', verifyToken, async (req, res) => {
 // ROTA: GET /api/os
 router.get('/', verifyToken, async (req, res) => { 
   try {
-    const orders = await Order.findAll();
-    res.status(200).json(orders); 
+    const orders = await Order.findAll({
+        // 1. Limitar os atributos para um carregamento mais rápido
+        attributes: ['id', 'num_o_s', 'cliente', 'estado', 'data_aber'],
+        order: [['data_aber', 'DESC']]
+    });
+    
+    // 2. Mapeamento para o formato esperado pelo ListaOS.jsx
+    const mappedOrders = orders.map(order => ({
+        id: order.id,
+        // Usamos 'num_o_s' como o campo principal, ou o ID se 'num_o_s' for nulo
+        title: order.num_o_s || `OS #${order.id}`, 
+        client: order.cliente,
+        status: order.estado, // Mapeia para o campo 'estado' do BD
+        createdAt: order.data_aber, // Mapeia para a data de abertura (em vez de um campo 'createdAt' gerado)
+    }));
+    
+    // 3. Devolvemos o array mapeado
+    res.status(200).json(mappedOrders); 
   } catch (error) {
     console.error('Erro ao listar OS:', error);
     res.status(500).json({ 

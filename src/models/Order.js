@@ -92,170 +92,176 @@ const Order = sequelize.define('Order', {
     allowNull: true,
   }, 
 
-  // 15. papel_miolo
+    // 15. impressão
+    maquina: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    }, 
+
+  // 16. papel_miolo
   papel_miolo: {
     type: DataTypes.STRING(100),
     allowNull: true,
   },
 
-  // 16. miolo_gramas
+  // 17. miolo_gramas
   miolo_gramas: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
   
-  // 17. bobine_miolo
+  // 18. bobine_miolo
   bobine_miolo: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },  
 
-  // 18. papel_capa
+  // 19. papel_capa
   papel_capa: {
     type: DataTypes.STRING(100),
     allowNull: true,
   },  
 
-  // 19. capa_gramas
+  // 20. capa_gramas
   capa_gramas: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 20. bobine_capa
+  // 21. bobine_capa
   bobine_capa: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
 
-  // 21. tiragem
+  // 22. tiragem
   tiragem: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 22. provas_cor
+  // 23. provas_cor
   provas_cor: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 23. ozalide_digital
+  // 24. ozalide_digital
   ozalide_digital: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 24. provas_konica
+  // 25. provas_konica
   provas_konica: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 25. verniz_capa
+  // 26. verniz_capa
   verniz_capa: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
 
-  // 26. verniz_capa_brilho_mate
+  // 27. verniz_capa_brilho_mate
   verniz_capa_brilho_mate: {
     type: DataTypes.STRING(30),
     allowNull: true,
   },
 
-  // 27. verniz_capa_geral_reservado
+  // 28. verniz_capa_geral_reservado
   verniz_capa_geral_reservado: {
     type: DataTypes.STRING(30),
     allowNull: true,
   },
 
-  // 28. verniz_capa_f_v
+  // 29. verniz_capa_f_v
   verniz_capa_f_v: {
     type: DataTypes.STRING(30),
     allowNull: true,
   },
 
-  // 29. observacoes_capa
+  // 30. observacoes_capa
   observacoes_capa: {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
 
-  // 30. verniz_miolo
+  // 31. verniz_miolo
   verniz_miolo: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
 
-  // 31. verniz_miolo_brilho_mate
+  // 32. verniz_miolo_brilho_mate
   verniz_miolo_brilho_mate: {
     type: DataTypes.STRING(30),
     allowNull: true,
   },
 
-  // 32. verniz_miolo_geral_reservado
+  // 33. verniz_miolo_geral_reservado
   verniz_miolo_geral_reservado: {
     type: DataTypes.STRING(30),
     allowNull: true,
   },
 
-  // 33. tipo_acabamento_miolo
+  // 34. tipo_acabamento_miolo
   tipo_acabamento_miolo: {
     type: DataTypes.STRING(100),
     allowNull: true,
   },
   
-   // 34. observacoes_miolo
+   // 35. observacoes_miolo
   observacoes_miolo: { 
     type: DataTypes.STRING(255),
     allowNull: true,
   },
 
-  // 35. local_entrega
+  // 36. local_entrega
   local_entrega: {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
 
-  // 36. forma_expedição
+  // 37. forma_expedição
   forma_expedicao: {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
 
-  // 37. quantidade_chapas
+  // 38. quantidade_chapas
   quantidade_chapas: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
 
-  // 38. operador
+  // 39. operador
   operador: {
     type: DataTypes.STRING(100),
     allowNull: true,
   },
 
-  // 39. tempo_operador
+  // 40. tempo_operador
   tempo_operador: {
     type: DataTypes.STRING(100),
     allowNull: true,
   },
 
-  // 40. estado (Status)
+  // 41. estado (Status)
   estado: {
     type: DataTypes.STRING(30),
     defaultValue: 'Pendente',
     allowNull: true,
   },
 
-  // 41. createdAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
+  // 42. createdAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
   createdAt: {
     type: DataTypes.DATE,
     allowNull: true,
   },
 
-  // 42. updatedAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
+  // 43. updatedAt (Sequelize gere isto normalmente, mas é bom definir se existir na tabela)
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: true,

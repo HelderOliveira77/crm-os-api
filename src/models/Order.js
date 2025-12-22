@@ -32,7 +32,7 @@ const Order = sequelize.define('Order', {
     allowNull: true,
   },
 
-    // 5. data_abert
+    // 5. data_aber
     data_aber: {
       type: DataTypes.DATEONLY, // Assumindo apenas a data
       allowNull: true,

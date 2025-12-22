@@ -1,10 +1,14 @@
 // src/routes/orders.js
 
 const express = require('express');
+const cors    = require('cors');
 const router = express.Router(); 
 const Order = require('../models/Order'); // <--- Certifique-se que o caminho está correto!
 
 const { verifyToken } = require('../middleware/auth'); // O caminho é '../middleware/auth' a partir de 'src/routes'
+
+
+
 
 
 // ROTA: POST /api/os

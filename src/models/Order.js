@@ -278,6 +278,7 @@ const Order = sequelize.define('Order', {
 
   // Se a sua tabela não usar as colunas createdAt e updatedAt:
   timestamps: true, // Mantenha a true se as colunas existirem, caso contrário, defina a false.
+  underscored: false, // Garante que ele mantém os nomes como escreveu (num_o_s)
   
   // Mapeamento extra (Se as colunas tiverem nomes diferentes no modelo vs na tabela):
   // field: 'nome_da_coluna_na_bd'
@@ -293,4 +294,12 @@ const Order = sequelize.define('Order', {
   // },
 });
 
+
+
+
+
 module.exports = Order;
+
+
+
+

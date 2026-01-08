@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
 });
 
 
-// ROTA DE LOGIN: POST /api/auth/login
+// ROTA DE LOGIN: POST /auth/login
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 

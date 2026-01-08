@@ -101,23 +101,23 @@ router.put('/:id', verifyToken, async (req, res) => {
 });
 
 
-// ROTA: DELETE /api/orders/:id
+// ROTA: DELETE /api/os/:id
 // Objetivo: Eliminar uma Ordem de Serviço por ID
 router.delete('/:id', verifyToken, async (req, res) => {
   try {
-    // 1. Converter o ID para número
-    const orderId = parseInt(req.params.id, 10);
-    const deletedCount = await Order.destroy({
-      // 2. Usar o ID convertido
-      where: { id: orderId }
+    const id = req.params.id;
+    const deleted = await Order.destroy({
+      where: { id: id }
     });
-    if (deletedCount === 0) {
-      return res.status(404).json({ message: 'Ordem de Serviço não encontrada.' });
+
+    if (deleted) {
+      return res.status(200).json({ message: "Ordem de serviço apagada com sucesso." });
     }
-    // Retorna 204 No Content para indicar sucesso na eliminação
-    return res.status(204).send();
+    
+    return res.status(404).json({ message: "Ordem de serviço não encontrada." });
   } catch (error) {
-    res.status(500).json({ message: 'Erro ao eliminar Ordem de Serviço.' });
+    console.error('Erro ao eliminar:', error);
+    res.status(500).json({ message: "Erro interno ao eliminar." });
   }
 });
 

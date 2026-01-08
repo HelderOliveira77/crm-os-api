@@ -14,7 +14,7 @@
       "/auth/register": {
     "post": {
       "summary": "Registar Novo Utilizador",
-      "tags": ["Auth"],
+      "tags": ["Autenticação"],
       "requestBody": {
         "required": true,
         "content": {
@@ -38,7 +38,7 @@
   "/auth/login": {
     "post": {
       "summary": "Login do Utilizador",
-      "tags": ["Auth"],
+      "tags": ["Autenticação"],
       "requestBody": {
         "required": true,
         "content": {
@@ -77,10 +77,12 @@
       "/orders": {
         "get": {
           "summary": "Listar todas as Ordens de Serviço",
+          "tags": ["Listar / Criar Ordens de Serviço"],
           "responses": { "200": { "description": "Lista de ordens de serviço." } }
         },
         "post": {
           "summary": "Criar nova Ordem de Serviço",
+          "tags": ["Listar / Criar Ordens de Serviço"],
           "requestBody": {
             "required": true,
             "content": {
@@ -110,7 +112,7 @@
         "get": { 
           "summary": "Buscar OS por ID", 
           "responses": { "200": { "description": "Detalhes da OS." } }, 
-          "tags": [ "Orders" ] 
+          "tags": [ "Ordens de Serviço" ] 
         },
         "put": { 
           "summary": "Atualizar OS por ID", 
@@ -133,12 +135,12 @@
           "responses": { 
             "200": { "description": "OS atualizada." } 
           }, 
-          "tags": [ "Orders" ] 
+          "tags": [ "Ordens de Serviço" ] 
         },
         "delete": { 
           "summary": "Eliminar OS por ID", 
           "responses": { "204": { "description": "OS eliminada." } }, 
-          "tags": [ "Orders" ] 
+          "tags": [ "Ordens de Serviço" ] 
         }
       }
     }

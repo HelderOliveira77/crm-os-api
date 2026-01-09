@@ -1,5 +1,7 @@
 // server.js 
 
+require('dotenv').config();
+
 const authRoutes = require('./src/routes/auth'); // NOVO: Rotas de autenticação
 const orderRoutes = require('./src/routes/orders'); 
 const express = require('express');
@@ -16,6 +18,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const cors = require('cors'); // [NOVO] Importar cors
+
+
+
 
 
 // 1. Configurar Rotas

@@ -45,7 +45,7 @@ router.get('/', verifyToken, async (req, res) => {
         //     'cores_miolo',    
         //     'observacoes_miolo' 
         // ],
-        order: [['data_aber', 'DESC']]
+        order: [['num_o_s', 'DESC']]
     });
     res.json(orders);
   } catch (error) {

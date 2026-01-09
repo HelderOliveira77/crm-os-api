@@ -60,4 +60,26 @@ router.post('/login', async (req, res) => {
 });
 
 
+// ROTA: GET /auth/users
+// Objetivo: Listar todos os utilizadores registados
+// Importamos o verifyToken para garantir que apenas quem tem login vê a lista
+const { verifyToken } = require('../middleware/auth'); 
+
+router.get('/users', verifyToken, async (req, res) => {
+  try {
+    // Procuramos todos os utilizadores, mas selecionamos apenas campos seguros
+    // Não queremos enviar a password (mesmo encriptada) para o frontend
+    const users = await User.findAll({
+      attributes: ['id', 'username', 'role', 'createdAt']
+    });
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Erro ao listar utilizadores:', error);
+    res.status(500).json({ message: 'Erro ao procurar utilizadores.' });
+  }
+});
+
+
+
 module.exports = router;

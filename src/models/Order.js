@@ -267,6 +267,13 @@ const Order = sequelize.define('Order', {
     allowNull: true,
   },
 
+  // 44. deposito legal (Nº Orçamento)
+  deposito_legal: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+    
+
 }, 
 
 {

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize'); // Importante para a lógica do "OU"
 const User = require('../models/User');
 
-// --- ROTA DE LOGIN (ADAPTADA) ---
+// --- ROTA DE LOGIN ---
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body; // 'username' aqui é o que o user digitou
@@ -65,7 +65,8 @@ router.post('/register', async (req, res) => {
     const newUser = await User.create({ 
       username, 
       email, 
-      password 
+      password,
+      role: 'Technician' // <--- Define aqui a role padrão/por defeito como Technician
     });
 
     res.status(201).json({ 

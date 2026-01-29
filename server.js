@@ -19,6 +19,8 @@ const PORT = process.env.PORT || 3000;
 
 const cors = require('cors'); // [NOVO] Importar cors
 
+const userRoutes = require('./src/routes/users');
+
 
 
 
@@ -53,6 +55,8 @@ app.get('/', (req, res) => {
 app.get('/swagger.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'swagger.json'));
 });
+
+app.use('/api/users', userRoutes);
 
 // 2. Iniciar o Servidor
 async function startServer() {

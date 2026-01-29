@@ -1,85 +1,89 @@
-// src/routes/auth.js
-
 const express = require('express');
-const jwt = require('jsonwebtoken'); 
 const router = express.Router();
-const User = require('../models/User'); // Importa o modelo User
+const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize'); // Importante para a lógica do "OU"
+const User = require('../models/User');
 
-// ROTA DE REGISTO: POST /api/auth/register
-router.post('/register', async (req, res) => {
-  const { username, password, role } = req.body;
-  
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username e Password são obrigatórios.' });
-  }
-
-  try {
-    const newUser = await User.create({ username, password, role });
-
-    const userResponse = { id: newUser.id, username: newUser.username, role: newUser.role, message: 'Utilizador registado com sucesso.' };
-    
-    res.status(201).json(userResponse);
-  } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(409).json({ message: 'O nome de utilizador já existe.' });
-    }
-    console.error('Erro no Registo:', error);
-    res.status(500).json({ message: 'Erro interno ao registar utilizador.' });
-  }
-});
-
-
-// ROTA DE LOGIN: POST /auth/login
+// --- ROTA DE LOGIN (ADAPTADA) ---
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
   try {
-    const user = await User.findOne({ where: { username } });
+    const { username, password } = req.body; // 'username' aqui é o que o user digitou
 
-    if (!user || !user.validPassword(password)) {
-      return res.status(401).json({ message: 'Credenciais Inválidas.' });
+    // 1. Procura por username OU email
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [
+          { username: username },
+          { email: username }
+        ]
+      }
+    });
+
+    // 2. Verifica se utilizador existe
+    if (!user) {
+      return res.status(401).json({ success: false, message: 'Utilizador ou Email não encontrado.' });
     }
-    
-    const payload = { id: user.id, role: user.role };
 
+    // 3. Verifica a password (usando o método do seu Model)
+    const isMatch = await user.validPassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: 'Password incorreta.' });
+    }
+
+    // 4. Gera o Token
     const token = jwt.sign(
-      payload, 
-      'SEGREDO_MUITO_SEGURO', // MUDAR PARA VARIÁVEL DE AMBIENTE NUM PROJETO REAL!
-      { expiresIn: '1h' }     
+      { id: user.id, username: user.username, role: user.role },
+      'SEGREDO_MUITO_SEGURO',
+      { expiresIn: '8h' }
     );
 
-    res.status(200).json({ 
-      token, 
-      user: { id: user.id, username: user.username, role: user.role } 
+    // 5. Responde ao Frontend
+    res.json({
+      success: true,
+      token,
+      user: {
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
     });
 
   } catch (error) {
-    console.error('Erro no Login:', error);
-    res.status(500).json({ message: 'Erro interno no servidor.' });
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Erro interno no servidor.' });
   }
 });
 
-
-// ROTA: GET /auth/users
-// Objetivo: Listar todos os utilizadores registados
-// Importamos o verifyToken para garantir que apenas quem tem login vê a lista
-const { verifyToken } = require('../middleware/auth'); 
-
-router.get('/users', verifyToken, async (req, res) => {
+// --- ROTA DE REGISTO (PARA REFERÊNCIA) ---
+router.post('/register', async (req, res) => {
   try {
-    // Procuramos todos os utilizadores, mas selecionamos apenas campos seguros
-    // Não queremos enviar a password (mesmo encriptada) para o frontend
-    const users = await User.findAll({
-      attributes: ['id', 'username', 'role', 'createdAt']
+    // 1. Extraímos os três campos do corpo da requisição
+    const { username, email, password } = req.body;
+
+    // 2. Criamos o utilizador no MySQL
+    // O Sequelize vai mapear 'email' para a nova coluna que criou
+    const newUser = await User.create({ 
+      username, 
+      email, 
+      password 
     });
 
-    res.status(200).json(users);
+    res.status(201).json({ 
+      success: true, 
+      message: 'Utilizador registado com sucesso!' 
+    });
   } catch (error) {
-    console.error('Erro ao listar utilizadores:', error);
-    res.status(500).json({ message: 'Erro ao procurar utilizadores.' });
+    console.error("Erro no registo:", error);
+    
+    // 3. Tratamento de erro para UNIQUE (Email ou Username já existentes)
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'O nome de utilizador ou email já estão em uso.' 
+      });
+    }
+
+    res.status(400).json({ success: false, message: 'Erro ao criar conta.' });
   }
 });
-
-
-
 module.exports = router;

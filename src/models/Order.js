@@ -98,6 +98,12 @@ const Order = sequelize.define('Order', {
       allowNull: true,
     }, 
 
+     // 7. lineatura (Lineatura)
+    lineatura: {
+     type: DataTypes.INTEGER,
+    allowNull: true,
+  }, 
+
   // 16. papel_miolo
   papel_miolo: {
     type: DataTypes.STRING(100),

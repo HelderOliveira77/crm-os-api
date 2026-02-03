@@ -57,15 +57,48 @@ const Order = sequelize.define('Order', {
     },
 
   // 9. cores_miolo
-  cores_miolo: {
+  cores_miolo_frente: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
+  },
+  cores_miolo_verso: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
   },
 
-  // 10. cores_capa
-  cores_capa: {
+  cores_especiais_miolo_frente: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 0,
+  },
+  cores_especiais_miolo_verso: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+
+  // Cores Capa (Frente e Verso)
+  cores_capa_frente: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+  cores_capa_verso: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+  cores_especiais_capa_frente: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+  cores_especiais_capa_verso: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
   },
   
   // 11. num_pag

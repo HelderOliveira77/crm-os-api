@@ -268,7 +268,7 @@ const Order = sequelize.define('Order', {
     },
 
     // 35. observacoes_miolo
-    observacoes_miolo: {
+    observacoes_verniz_miolo: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },

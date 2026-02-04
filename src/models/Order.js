@@ -250,6 +250,10 @@ const Order = sequelize.define('Order', {
       type: DataTypes.STRING(30),
       allowNull: true,
     },
+    verniz_miolo_f_v: {
+      type: DataTypes.STRING(30),
+      allowNull: true,
+    },
 
     // 33. verniz_miolo_geral_reservado
     verniz_miolo_geral_reservado: {

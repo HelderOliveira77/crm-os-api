@@ -5,7 +5,7 @@ const { sequelize } = require('../config/database');
 
 const Order = sequelize.define('Order', {
   // ATENÇÃO: A ordem dos campos na definição do modelo não afeta o funcionamento,
-  // mas o nome e o tipo TÊM de corresponder à tabela.
+  // mas o nome e o tipo TÊM de corresponder à tabela
 
   // 1. id (Chave Primária)
   id: {

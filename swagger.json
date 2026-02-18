@@ -10,6 +10,24 @@
         "url": "http://localhost:3000"
       }
     ],
+
+    "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+
+
+
     "paths": {
       "/auth/register": {
     "post": {
@@ -74,7 +92,7 @@
   },
 
 
-      "/orders": {
+      "/api/os": {
         "get": {
           "summary": "Listar todas as Ordens de Serviço",
           "tags": ["Listar / Criar Ordens de Serviço"],
@@ -105,7 +123,7 @@
           }
         }
       },
-      "/orders/{id}": {
+      "/api/os/{id}": {
         "parameters": [
           { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
         ],

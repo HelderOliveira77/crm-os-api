@@ -1,6 +1,9 @@
 // server.js 
 
-require('dotenv').config();
+// Apenas carrega o dotenv se as variáveis principais não existirem no sistema
+if (!process.env.DB_PASS) {
+  require('dotenv').config();
+}
 
 const authRoutes = require('./src/routes/auth'); // NOVO: Rotas de autenticação
 const orderRoutes = require('./src/routes/orders'); 

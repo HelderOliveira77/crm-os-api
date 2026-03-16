@@ -233,8 +233,8 @@ const Order = sequelize.define('Order', {
       allowNull: true,
     },
 
-    // 30. observacoes_capa
-    observacoes_capa: {
+    // 30. observacoes_verniz_capa
+    observacoes_verniz_capa: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
